@@ -1,0 +1,289 @@
+{% extends  'basefiles/basehome.html' %}
+{% load static %}
+{% block title %}home{% endblock %}
+{% block content %}
+
+<header class="header-container">
+    <div class="container1">
+        <section>
+          <div class="image" data-type="background" data-speed="2"></div>
+          <div class="stuff" data-type="content">
+            <h2>ISO-BEST</h2>
+            <h2>Presentation</h2>
+            <div claass="stuff">
+                <a href="#" target="_self" class="green-button2">
+                    Obtenir un devis gratuit
+                </a>
+            </div>
+       
+        </div>
+  
+        </section>
+      </div>
+      </div> 
+    </header>
+   
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="d-flex flex-column">
+                        <img class="img-fluid rounded w-75 align-self-end" src="{% static 'images/products/1.jpg' %}" alt="">
+                        <img class="img-fluid rounded w-50 bg-white pt-3 pe-3" src="{% static 'images/products/2.jpg' %}" alt="" style="margin-top: -25%;">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <!-- <p class="d-inline-block border rounded-pill py-1 px-4">About Us</p> -->
+                    <h1 class="mb-4">les créateurs de la façade</h1>
+                    <p>Chez ISO-BEST, nous nous spécialisons dans l'art de la Menuiserie
+                        Façade, la Menuiserie Aluminium et l'Automatisme, offrant des
+                        solutions innovantes et élégantes pour vos projets de construction
+                        et de rénovation. Avec un savoir-faire reconnu dans la création de
+                        façades modernes et fonctionnelles, nous allions expertise
+                        technique et design esthétique pour répondre à vos besoins
+                        spécifiques.</p>
+                    <p class="mb-4">Nos produits en aluminium, alliant durabilité et sophistication, sont
+                        idéaux pour des villas luxueuses et des bâtiments résidentiel ou
+                        commerciale à la recherche d'une touche contemporaine. Nous
+                        nous engageons à fournir des solutions personnalisées et de haute
+                        qualité, tout en mettant un point d'honneur à l'innovation et à la
+                        satisfaction de nos clients.</p>
+
+                    <!-- <p><i class="far fa-check-circle text-primary me-3"></i>Quality health care</p>
+                    <p><i class="far fa-check-circle text-primary me-3"></i>Only Qualified Doctors</p>
+                    <p><i class="far fa-check-circle text-primary me-3"></i>Medical Research Professionals</p> -->
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="{% url 'about' %}">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="block-head">
+                    <h2 class="title"><span>Pourquoi nous choisi</span></h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item position-relative rounded overflow-hidden">
+                            <div class="overflow-hidden">
+                                <div class="bg-light text-center p-4">
+                                    <h5>Expertise Technique</h5>
+                                </br>
+                                    <p class="text-primary">    Notre maîtrise technologique assure un diagnostic précis et 
+                                        une résolution rapide des problèmes pour une performance optimale des systèmes.
+                                    </p>
+                                 
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="team-item position-relative rounded overflow-hidden">
+                            <div class="overflow-hidden">
+                                <div class="bg-light text-center p-4">
+                                    <h5>Engagement envers la Qualité </h5>
+                                    <p class="text-primary">
+                                        Tous nos systèmes sont   conçus pour résister à l'épreuve du temps,
+                                        en utilisant des matériaux de première qualité et en respectant les normes les plus stricte
+                                        </p>
+                                 
+                                </div>
+                            </div>
+                         
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="team-item position-relative rounded overflow-hidden">
+                            <div class="overflow-hidden">
+                                <div class="bg-light text-center p-4">
+                                    <h5>Solutions Sur Mesure</h5>
+                                </br>
+                                    <p class="text-primary">
+                                        Chaque client a des besoins uniques. 
+                                        ISO-BEST propose des solutions personnalisées pour la sécurité,
+                                        fonctionnalité et esthétique.
+                                    </p>
+                                   
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="team-item position-relative rounded overflow-hidden">
+                            <div class="overflow-hidden">
+                                <div class="bg-light text-center p-4">
+                                    <h5>La Qualité et la durabilité </h5>
+                                    <p class="text-primary">Tous nos systèmes sont
+                                        conçus pour résister à l'épreuve du temps,
+                                         en utilisant des matériaux de première qualité et en respectant les normes les plus stricte.</p>
+        
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                 
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="products-block">
+            <div class="container">
+                <div class="block-head">
+                    <h2 class="title"><span>Nos Produits</span></h2>
+                </div>
+                <div class="our-services-list">
+                    <div class="container gal-container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="{% static 'images/slider/h5.jpg' %}" alt="Porte Automatique">
+                                        <figcaption>
+                                            <h2><span>Menuiserie Aluminium </span></h2>
+                                           
+                                            <a href="#">View more</a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="{% static 'images/products/1572614119.jpg' %}" alt="CLOISON BORD A BORD VITREE">
+                                        <figcaption>
+                                            <h2><span>Menuiserie Façade</span></h2>
+                                            <a href="#">View more</a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="{% static 'images/products/1568118026.png' %}" alt="Porte Garage">
+                                        <figcaption>
+                                            <h2><span>L’Automatisme</span></h2>
+                                            <a href="#">View more</a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                            
+                           
+                           
+                            <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="{% static 'images/products/1597495868.jpg' %}" alt="Moustiquaires">
+                                        <figcaption>
+                                            <h2><span>Porte Coupe-Feu</span></h2>
+                                          
+                                            <a href="#">View more</a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+        <!-- Team End -->
+            
+     <div class="home-about-block">
+        <div class="container">
+            <div class="block-head">
+                <h2 class="title"><span>Ils Nous Ont Fait Confiance</span></h2>
+                <p>
+                    Au fil des années, nous avons eu le privilège de travailler avec des clients dévoués qui ont choisi notre expertise chez ISO-BEST .
+                    Leur est notre plus grande réussite, et nous nous efforçons de toujours dépasser leurs attentes en fournissant des solutions personnalisées et durables. 
+                    La fidélité et la recommandation de nos clients sont les meilleures preuves de la valeur ajoutée que nous apportons à chaque projet.    
+                </p>
+            </div>
+          </div>       
+    </div>
+
+    </div>
+</div>
+
+     
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- jquery latest version -->
+<script src="{% static 'js/vendor/jquery-1.12.0.min.js' %}"></script>
+<!-- Bootstrap framework js -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- headlines js -->
+<script src="{% static 'js/animated-headlines.js' %}"></script>
+<!-- Swiper framework js -->
+<script src="{% static 'js/swiper.min.js' %}"></script>
+<!-- Owl carousel -->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+<!-- Main js -->
+<script src="{% static 'js/main.js' %}"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var windowsize = $(window).width();
+        if (windowsize < 992) {
+            $('[data-aos]').removeClass('aos-init');
+            $('[data-aos]').removeClass('aos-animate');
+            $('[data-aos]').removeAttr('data-aos');
+            $('body').removeAttr('data-aos-easing');
+            $('body').removeAttr('data-aos-duration');
+            $('body').removeAttr('data-aos-delay ');
+        }
+        init();
+
+
+    function init() {
+        $( "img" ).each(function() {
+            $( this ).attr( "src" , $( this ).attr( "data-src"));
+        });
+    }
+
+
+    $(".carousel-list").owlCarousel({
+    autoPlay: true,
+    autoplayTimeout: 1500,
+    slideSpeed:1500,
+    pagination:true,
+    navigation:false,
+    items : 3,
+    /* transitionStyle : "fade", */    /* [This code for animation ] */
+    navigationText:["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+    itemsDesktop : [1199,3],
+    itemsDesktopSmall : [991,2],
+    itemsTablet: [768,1],
+    itemsMobile : [479,1],
+    });
+
+
+    if ('serviceWorker' in navigator) {
+        console.log("Will the service worker register?");
+        navigator.serviceWorker.register('https://www.aluminiumpyxel.com/service-worker.js?rb=JO9oE')
+            .then(function(reg){
+                console.log("Yes, it did.");
+            }).catch(function(err) {
+            console.log("No it didn't. This happened:", err)
+        });
+    }
+
+    });
+
+</script>
+</script>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends  'basefiles/baseprudct.html' %}
+{% load static %}
+{% block content %}
+<header class="header-container">
+    <div class="untitled">
+        <div class="untitled__slides">
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>London</span> 
+                    <span>Scout</span>
+                    <a class="button" href="https://unsplash.com/@scoutthecity" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    
+                    <!-- <span>Vladimir</span> 
+                    <span>Kudinov</span>
+                    <a class="button" href="https://unsplash.com/@madbyte" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>Macio</span> 
+                    <span>Amorim</span>
+                    <a class="button" href="https://unsplash.com/@maicoamorim" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>Mario</span> 
+                    <span>Calvo</span>
+                    <a class="button" href="https://unsplash.com/@mariocalvo" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="untitled__shutters"></div>
+    </div>
+    </header>
+            <div class="home-about-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>Menuiserie Façade</span></h2>
+                        <p>
+                            Chez ISO-BEST, nous excellons dans la création de solutions 
+                            de menuiserie façade qui allient innovation,
+                            esthétique et performance énergétique
+                        </p>
+                        <p>
+                            Nos façades VEA, façades à Double Peau, façades Mur-Rideau, Habillages en Alucobond,
+                            et Verrières sont conçus pour transformer les bâtiments en espaces modernes et efficaces. 
+                        </p>
+                    </div>
+
+                    <!-- <div class="buttons">
+                        <div class="hover-animation">
+                            <a class="button-s1" href="#"><i class="fa fa-exclamation-circle"></i>à Propose de Nous</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+          
+            <div class="products-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>Nos Produits</span></h2>
+                    </div>
+                    <div class="our-services-list">
+                        <div class="container gal-container">
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="images/slider/h5.jpg" alt="CLOISON AMOVIBLE">
+                                            <figcaption>
+                                                <h2><span>Habillage en Alucobond</span></h2>
+                                                <a href="{% url 'Alucobond' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1572614119.jpg" alt="CLOISON BORD A BORD VITREE">
+                                            <figcaption>
+                                                <h2><span>VEA</br>(Vitrage Écran Actif)</span></h2>
+                                                <a href="{% url 'vea' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1568118026.png" alt="CLOISON AMOVIBLE">
+                                            <figcaption>
+                                                <h2><span>Façade </br>Mur-Rideau</span></h2>
+                                                <a href="{% url 'MurRideau' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>                   
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1597495868.jpg" alt="Moustiquaires">
+                                            <figcaption>
+                                                <h2><span>FAÇADE DOUBLE PEAU</span></h2>
+                                              <a href="{% url 'DoublePeau' %}">View more</a>
+                                               
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+      {% endblock %}

@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider with Bottom Centered Radio Buttons and Autoplay</title>
+    <style>
+        .st-slider {
+            position: relative;
+            width: 100%;
+            height: 500px; /* Adjust as needed */
+        }
+        .image {
+            width: 100%;
+            height: 500px;
+        }
+        .images {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .images-inner {
+            width: 300%;
+            height: 100%;
+            transition: all 800ms cubic-bezier(0.77, 0, 0.175, 1);
+            transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .image-slide {
+            width: 33.33%;
+            height: 100%;
+            float: left;
+        }
+        .radio-buttons {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        .radio {
+            display: none;
+        }
+        .radio-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: gray;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        #slide1:checked ~ .radio-buttons .radio-btn:nth-child(1),
+        #slide1:checked ~ .radio-buttons .radio-btn:nth-child(),
+        #slide2:checked ~ .radio-buttons .radio-btn:nth-child(2),
+        #slide3:checked ~ .radio-buttons .radio-btn:nth-child(3) {
+            background: red;
+        }
+        #slide1:checked ~ .images .images-inner {
+            margin-left: 0;
+        }
+        #slide2:checked ~ .images .images-inner {
+            margin-left: -100%;
+        }
+        #slide3:checked ~ .images .images-inner {
+            margin-left: -200%;
+        }
+
+        /* Autoplay animation */
+        @keyframes slide {
+            0%, 30% { margin-left: 0; }
+            33%, 63% { margin-left: -100%; }
+            66%, 96% { margin-left: -200%; }
+            100% { margin-left: 0; }
+        }
+
+        #play1:checked ~ .images .images-inner {
+            animation: slide 12s infinite;
+        }
+
+        /* Autoplay for radio buttons */
+        @keyframes bullet {
+            0%, 30% { background: red; }
+            33%, 100% { background: gray; }
+        }
+
+        #play1:checked ~ .radio-buttons .radio-btn:nth-child(1) {
+            animation: bullet 12s infinite 0s;
+        }
+        #play1:checked ~ .radio-buttons .radio-btn:nth-child(2) {
+            animation: bullet 12s infinite -4s;
+        }
+        #play1:checked ~ .radio-buttons .radio-btn:nth-child(3) {
+            animation: bullet 12s infinite -8s;
+        }
+    </style>
+</head>
+<body>
+    <div id="homepage-slider" class="st-slider">
+        <input type="radio" class="radio" name="slider" id="slide1">
+        <input type="radio" class="radio" name="slider" id="slide2">
+        <input type="radio" class="radio" name="slider" id="slide3">
+       
+        <input type="radio" class="radio" name="slider" id="play1" checked>
+        
+        <div class="radio-buttons">
+            <label for="slide1" class="radio-btn"></label>
+            <label for="slide2" class="radio-btn"></label>
+            <label for="slide3" class="radio-btn"></label>
+           
+        </div>
+
+        <div class="images">
+            <div class="images-inner">
+                <div class="image-slide">
+                    <div class="image" style="background-image: url('{% static 'images/products/1572265910.jpg' %}');"></div>
+                </div>
+                <div class="image-slide">
+                    <div class="image" style="background-image: url('{% static 'images/products/1572265910.jpg' %}');"></div>
+
+                </div>
+                <div class="image-slide">
+                    <div class="image" style="background-image: url('{% static 'images/products/1572265910.jpg' %}');"></div>
+
+                </div>
+                <!-- <div class="image-slide">
+                  <div class="image" style="background-color:green;">image slide 4</div>
+              </div> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

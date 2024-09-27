@@ -1,0 +1,181 @@
+{% extends  'basefiles/baseprudct.html' %}
+{% load static %}
+{% block content %}
+<header class="header-container">
+    <div class="untitled">
+        <div class="untitled__slides">
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>London</span> 
+                    <span>Scout</span>
+                    <a class="button" href="https://unsplash.com/@scoutthecity" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    
+                    <!-- <span>Vladimir</span> 
+                    <span>Kudinov</span>
+                    <a class="button" href="https://unsplash.com/@madbyte" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>Macio</span> 
+                    <span>Amorim</span>
+                    <a class="button" href="https://unsplash.com/@maicoamorim" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>Mario</span> 
+                    <span>Calvo</span>
+                    <a class="button" href="https://unsplash.com/@mariocalvo" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="untitled__shutters"></div>
+    </div>
+    </header>
+            <div class="home-about-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>Menuiserie Métallique</span></h2>
+                        <p>
+                            Nos Portes Métalliques offrant à la fois sécurité et style,
+                            nos portes métalliques sont disponibles dans 
+                            une variété de designs et de finitions pour s'adapter à l'esthétique de tout bâtiment.
+                        </p>
+                        <p>
+                            Nos façades VEA, façades à Double Peau,
+                            façades Mur-Rideau, Habillages en Alucobond,
+                            et Verrières sont conçus pour transformer les bâtiments en espaces modernes et efficaces. 
+                        </p>
+                    </div>
+                 
+                    <!-- <div class="buttons">
+                        <div class="hover-animation">
+                            <a class="button-s1" href="#"><i class="fa fa-exclamation-circle"></i>à Propose de Nous</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="products-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>Nos Produits</span></h2>
+                    </div>
+                    <div class="our-services-list">
+                        <div class="container gal-container">
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="images/slider/h5.jpg" alt="CLOISON AMOVIBLE">
+                                            <figcaption>
+                                                <h2><span>Rideaux Métalliques et Grilles de Protection:</span></h2>
+                                               
+                                                <a href="{% url 'RideauxGrilles' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1572614119.jpg" alt="CLOISON BORD A BORD VITREE">
+                                            <figcaption>
+                                                <h2><span>Portes Coupe-Feu Métalliques</span></h2>
+                                                <a href="{% url 'CoupeFeu' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1568118026.png" alt="CLOISON AMOVIBLE">
+                                            <figcaption>
+                                                <h2><span>Portes Métalliques </span></h2>
+                                              
+                                                <a href="{% url 'PortesMetalliques' %}"></a> 
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1571347790.jpg" alt="Sunbed">
+                                            <figcaption>
+                                                <h2><span>Fenêtres Métalliques</span></h2>
+                                                <!-- <p>Face à la mer, suspendez le temps et laissez-vous aller sur le ...</p> -->
+                                                <a href="{% url 'FenetresMetalliques' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                             <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1572263949.jpg" alt="Pergola BIOCLIMATIQUE">
+                                            <figcaption>
+                                                <h2><span>Garde-corps Métalliques</span></h2>
+                                                <!-- <p>Idéalement installée dans votre jardin ou sur votre terr...</p> -->
+                                                <a href="{% url 'Gardecorps' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                             </div>
+                             <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="https://www.aluminiumpyxel.com/images/products/1572614119.jpg" alt="CLOISON BORD A BORD VITREE">
+                                        <figcaption>
+                                            <h2><span>Escaliers Métalliques:</span></h2>
+                                            <a href="{% url 'EscaliersMetalliques' %}">View more</a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="https://www.aluminiumpyxel.com/images/products/1568118026.png" alt="CLOISON AMOVIBLE">
+                                        <figcaption>
+                                            <h2><span>Clôtures Métalliques </span></h2>
+                                            <!-- <p>Nos portes de garage allient sécurité, style et fonctionnalité.</p> -->
+                                            <a href="{% url 'CloturesMetalliques' %}"></a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                               
+                               
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1597495868.jpg" alt="Moustiquaires">
+                                            <figcaption>
+                                                <h2><span>Portails Métalliques</span></h2>
+                                              
+                                                <a href="{% url 'PortailsMetalliques' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+{% endblock %}

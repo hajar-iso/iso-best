@@ -1,0 +1,217 @@
+{% extends  'basefiles/baseprudct.html' %}
+{% load static %}
+{% block content %}
+<header class="header-container">
+    <div class="untitled">
+    <div class="untitled__slides">
+       <div class="untitled__slide">
+           <div class="untitled__slideBg"></div>
+           <div class="untitled__slideContent">
+               <!-- <span>London</span> 
+               <span>Scout</span>
+               <a class="button" href="https://unsplash.com/@scoutthecity" target="/black">Unsplash Profile</a> -->
+           </div>
+       </div>
+       <div class="untitled__slide">
+           <div class="untitled__slideBg"></div>
+           <div class="untitled__slideContent">
+               
+               <!-- <span>Vladimir</span> 
+               <span>Kudinov</span>
+               <a class="button" href="https://unsplash.com/@madbyte" target="/black">Unsplash Profile</a> -->
+           </div>
+       </div>
+       <div class="untitled__slide">
+           <div class="untitled__slideBg"></div>
+           <div class="untitled__slideContent">
+               <!-- <span>Macio</span> 
+               <span>Amorim</span>
+               <a class="button" href="https://unsplash.com/@maicoamorim" target="/black">Unsplash Profile</a> -->
+           </div>
+       </div>
+       <div class="untitled__slide">
+           <div class="untitled__slideBg"></div>
+           <div class="untitled__slideContent">
+               <!-- <span>Mario</span> 
+               <span>Calvo</span>
+               <a class="button" href="https://unsplash.com/@mariocalvo" target="/black">Unsplash Profile</a> -->
+           </div>
+       </div>
+   </div>
+   <div class="untitled__shutters"></div>
+</div>
+</header>
+
+            <div class="home-about-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>Menuiserie Aluminium</span></h2>
+                        <p>
+                            Nous proposons une large gamme de produits en aluminium, y compris des fenêtres, des portes,
+                            des cloisons et des vérandas, tous conçus pour offrir performance, esthétique et durabilité.
+                        </p>
+                        <p>
+                            Que vous travailliez sur un projet résidentiel ou commercial, 
+                            nous avons les compétences nécessaires pour réaliser vos idées.
+                        </p>
+                    </div>
+
+                    <!-- <div class="buttons">
+                        <div class="hover-animation">
+                            <a class="button-s1" href="#"><i class="fa fa-exclamation-circle"></i>à Propose de Nous</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+           
+            <div class="products-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>Cloisons Amovibles en Aluminium:</span></h2>
+                        <a href="{% url 'Cloisonsamovibles' %}">View more</a>
+                    </div>
+                    <div class="our-services-list">
+                        <div class="container gal-container">
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="images/slider/h5.jpg" alt="CLOISON AMOVIBLE">
+                                            <figcaption>
+                                                <h2><span>Portes-Fenêtres en Aluminium:</span></h2>
+                                                <a href="{% url 'portesfenetre' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1572614119.jpg" alt="CLOISON BORD A BORD VITREE">
+                                            <figcaption>
+                                                <h2><span>Baies Vitrées en Aluminium:</span></h2>
+                                                <a href="{% url 'baiesvitre' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1568118026.png" alt="CLOISON AMOVIBLE">
+                                            <figcaption>
+                                                <h2><span>Fenêtres en Aluminium </span></h2>
+                                              
+                                                <a href="{% url 'Fenetres' %}"></a> 
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1571347790.jpg" alt="Sunbed">
+                                            <figcaption>
+                                                <h2><span>Portes en Aluminium</span></h2>
+                                                <!-- <p>Face à la mer, suspendez le temps et laissez-vous aller sur le ...</p> -->
+                                                <a href="{% url 'Portes' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                             <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1572263949.jpg" alt="Pergola BIOCLIMATIQUE">
+                                            <figcaption>
+                                                <h2><span>Verrières en Aluminium:</span></h2>
+                                                <!-- <p>Idéalement installée dans votre jardin ou sur votre terr...</p> -->
+                                                <a href="{% url 'Verrieres' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                             </div>
+                             <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="images/slider/h5.jpg" alt="CLOISON AMOVIBLE">
+                                        <figcaption>
+                                            <h2><span>Garde-corps en Aluminium:</span></h2>
+                                            <a href="{% url 'alGardecorps' %}">View more</a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                             <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="https://www.aluminiumpyxel.com/images/products/1572614119.jpg" alt="CLOISON BORD A BORD VITREE">
+                                        <figcaption>
+                                            <h2><span>Volets en Aluminium: </span></h2>
+                                            <a href="{% url 'Volets' %}">View more</a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                <div class="grid">
+                                    <figure class="effect-layla">
+                                        <img src="https://www.aluminiumpyxel.com/images/products/1568118026.png" alt="CLOISON AMOVIBLE">
+                                        <figcaption>
+                                            <h2><span>Portes-Fenêtres en Aluminium:  </span></h2>
+                                            <a href="{% url 'portesfenetre' %}"></a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                               
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1571347790.jpg" alt="Sunbed">
+                                            <figcaption>
+                                                <h2><span>Brise-soleil en Aluminium:</span></h2>
+                                                
+                                                <a href="{% url 'Brisesoleil' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1572263949.jpg" alt="Pergola BIOCLIMATIQUE">
+                                            <figcaption>
+                                                <h2><span>Pergolas en Aluminium:</span></h2>
+                                                
+                                                <a href="{% url 'Pergolas' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1597495868.jpg" alt="Moustiquaires">
+                                            <figcaption>
+                                                <h2><span>Clôtures et Portails en Aluminium: </span></h2>
+                                                <!-- <p>
+                                                    Nous offrons des solutions de sécurité et de protection avancées avec nos portes coupe-feu hautement résistantes.
+                                                </p> -->
+                                                <a href="{% url 'CloturesPortails' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}

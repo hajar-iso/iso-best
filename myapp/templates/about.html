@@ -1,0 +1,157 @@
+{% extends  'basefiles/baseprudct.html' %}
+{% load static %}
+{% block title %}produits{% endblock %}
+{% block content %}
+{% include 'basefiles/slidesfile.html' %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6 p-0" data-wow-delay="0.1s">
+                <div class="d-flex flex-column">
+                    <img class="img-fluid rounded w-75 align-self-end shadow" src="{% static 'images/products/1.jpg' %}" alt="Product Image">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="p-5 mt-4">
+                        <div class="tab-pane fade show active" id="tab_1">
+                            <h1 >QUI SOMMES-NOUS ?</h1>
+                            
+                            <p>
+                                Chez ISO-BEST, nous sommes spécialisés dans la fourniture et l'installation de menuiseries aluminium,
+                                métalliques, façades, et systèmes d'automatisation de pointe. Notre entreprise s'est rapidement établie 
+                                comme un leader dans le secteur, reconnue pour notre expertise technique, notre innovation, et notre 
+                                capacité à réaliser des projets complexes avec excellence.
+                            </p>
+                            <p>
+                                Nous proposons des bornes escamotables automatisées, idéales pour contrôler l'accès aux zones piétonnes, 
+                                parkings, et zones sensibles. Nos bornes sont robustes, résistantes aux chocs, et offrent une montée et 
+                                une descente rapides et fluides. Nous intégrons ces bornes avec des systèmes de contrôle d'accès et de 
+                                surveillance pour une gestion optimale des flux de véhicules.
+                            </p>
+                            </div>
+                            </div>
+                          
+                </div>
+                <!-- <div class="buttons mt-3">
+                    <div class="hover-animation">
+                        <a class="button-s1" href="https://www.aluminiumpyxel.com/contactez-nous"><i class="fa fa-comment"></i> Contactez-Nous</a>
+                    </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+         
+        </div>
+  
+
+<div class="services-block">
+    <div class="container">
+        <div class="block-head">
+            <h2 class="title"><span>POURQUOI NOUS CHOISIR ?</span></h2>
+            <p>
+                Nous proposons des bornes escamotables automatisées, idéales pour contrôler l'accès aux zones piétonnes,
+                aux parkings, et aux zones sensibles. Nos bornes sont conçues pour être robustes et résistantes aux chocs, tout en offrant une montée et une descente rapides et fluides.
+                Nous intégrons nos bornes avec des systèmes de contrôle d'accès et de surveillance pour une gestion optimale des flux de véhicules.
+            </p>
+        </div>
+    </div>
+    <div class="container">
+    <div class="block-head">
+        <h2 class="title"><span>NOTRE PROCESSUS</span></h2>
+        <div class="timeline-container">
+            <div class="timeline">
+                <div class="step">
+                    <div class="step-icon">
+                        <img src="{% static 'images/mylogo/cnpt.png'%}" alt="Conception">
+                    </div>
+                    <div class="step-title">CONCEPTION</div>
+                    <div class="step-description">
+                        Nos experts en menuiserie conçoivent une solution personnalisée et élaborent un plan détaillé pour votre projet.
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <img src="{% static 'images/mylogo/cp2.png'%}" alt="Fabrication">
+                    </div>
+                    <div class="step-title">FABRICATION</div>
+                    <div class="step-description">
+                        Nous fabriquons les composants nécessaires et effectuons les préparatifs pour l'installation de votre projet.
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <img src="{% static 'images/mylogo/cp3.png'%}" alt="Installation">
+                    </div>
+                    <div class="step-title">INSTALLATION</div>
+                    <div class="step-description">
+                        Nos installateurs expérimentés assurent une installation précise et de haute qualité en suivant les normes et les réglementations en vigueur.
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    
+</div>
+
+<!-- Swiper framework js -->
+<script src="{% static 'js/swiper.min.js' %}"></script>
+<!-- Owl carousel -->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+<!-- Main js -->
+<script src="{% static 'js/main.js?rb=NWiJW' %}"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var windowsize = $(window).width();
+        if (windowsize < 992) {
+            $('[data-aos]').removeClass('aos-init');
+            $('[data-aos]').removeClass('aos-animate');
+            $('[data-aos]').removeAttr('data-aos');
+            $('body').removeAttr('data-aos-easing');
+            $('body').removeAttr('data-aos-duration');
+            $('body').removeAttr('data-aos-delay ');
+        }
+        init();
+
+
+    function init() {
+        $( "img" ).each(function() {
+            $( this ).attr( "src" , $( this ).attr( "data-src"));
+        });
+    }
+
+
+    $(".carousel-list").owlCarousel({
+    autoPlay: true,
+    autoplayTimeout: 1500,
+    slideSpeed:1500,
+    pagination:true,
+    navigation:false,
+    items : 3,
+    /* transitionStyle : "fade", */    /* [This code for animation ] */
+    navigationText:["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+    itemsDesktop : [1199,3],
+    itemsDesktopSmall : [991,2],
+    itemsTablet: [768,1],
+    itemsMobile : [479,1],
+    });
+
+
+    if ('serviceWorker' in navigator) {
+        console.log("Will the service worker register?");
+        navigator.serviceWorker.register('https://www.aluminiumpyxel.com/service-worker.js?rb=lOJjT')
+            .then(function(reg){
+                console.log("Yes, it did.");
+            }).catch(function(err) {
+            console.log("No it didn't. This happened:", err)
+        });
+    }
+
+    });
+    </script>
+
+     {% endblock %}

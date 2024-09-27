@@ -1,0 +1,204 @@
+{% extends  'basefiles/baseprudct.html' %}
+{% load static %}
+{% block title %}Automatisme{% endblock %}
+{% block content %}
+<header class="header-container">
+    <div class="untitled">
+        <div class="untitled__slides">
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>London</span> 
+                    <span>Scout</span>
+                    <a class="button" href="https://unsplash.com/@scoutthecity" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    
+                    <!-- <span>Vladimir</span> 
+                    <span>Kudinov</span>
+                    <a class="button" href="https://unsplash.com/@madbyte" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>Macio</span> 
+                    <span>Amorim</span>
+                    <a class="button" href="https://unsplash.com/@maicoamorim" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+            <div class="untitled__slide">
+                <div class="untitled__slideBg"></div>
+                <div class="untitled__slideContent">
+                    <!-- <span>Mario</span> 
+                    <span>Calvo</span>
+                    <a class="button" href="https://unsplash.com/@mariocalvo" target="/black">Unsplash Profile</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="untitled__shutters"></div>
+    </div>
+    </header>
+            <div class="home-about-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>L’Automatisme</span></h2>
+                        <p>
+                            Avec plusieurs années d'expérience dans le domaine de l'automatisation,
+                            nous avons réalisé de nombreux projets complexes,
+                            ce qui nous permet de maîtriser les défis techniques et logistiques.
+                        </p>
+                        <p>
+                            Nous travaillons uniquement avec des fournisseurs de confiance et des produits 
+                            certifiés pour assurer la durabilité et la performance de vos systèmes d'automatisation.
+                        </p>
+                        <p>
+                            La satisfaction de nos clients est notre priorité absolue. 
+                            Nous nous engageons à fournir un travail de qualité
+                            et à dépasser vos attentes à chaque étape du projet.
+                        </p>
+                    </div>
+                    <!-- <div class="buttons">
+                        <div class="hover-animation">
+                            <a class="button-s1" href="#"><i class="fa fa-exclamation-circle"></i>à Propose de Nous</a>
+                        </div>
+                    </div> -->
+                </div>
+                 
+
+                    
+            </div>
+            <div class="products-block">
+                <div class="container">
+                    <div class="block-head">
+                        <h2 class="title"><span>Nos Produits</span></h2>
+                    </div>
+                    <div class="our-services-list">
+                        <div class="container gal-container">
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="{% static 'images/slider/h5.jpg' %}" alt="Porte Automatique">
+                                            <figcaption>
+                                                <h2><span>Systèmes de Volets Battants Automatisés</span></h2>
+                                               
+                                                <a href="{% url 'SystemesVoletsBattants' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="{% static 'images/products/1572614119.jpg' %}" alt="CLOISON BORD A BORD VITREE">
+                                            <figcaption>
+                                                <h2><span>Borne Escamotable Automatisée</span></h2>
+                                                <a href="{% url 'BorneEscamotable' %}"></a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="{% static 'images/products/1568118026.png' %}" alt="Porte Garage">
+                                            <figcaption>
+                                                <h2><span>Porte Automatique</span></h2>
+                                                <!-- <p>Nos portes de garage allient sécurité, style et fonctionnalité.</p>-->
+                                                <a href="{% url 'Portes' %}"></a> 
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1571347790.jpg" alt="Sunbed">
+                                            <figcaption>
+                                                <h2><span>Portails Automatiques</span></h2>
+                                                <!-- <p>Face à la mer, suspendez le temps et laissez-vous aller sur le ...</p> -->
+                                                <a href="{% url 'Portails' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                             <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="https://www.aluminiumpyxel.com/images/products/1572263949.jpg" alt="Pergola BIOCLIMATIQUE">
+                                            <figcaption>
+                                                <h2><span>Volets Roulants Automatisé</span></h2>
+                                                <!-- <p>Idéalement installée dans votre jardin ou sur votre terr...</p> -->
+                                                <a href="{% url 'VoletsRoulants' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                
+                               
+                               
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="{% static 'images/products/1597495868.jpg' %}" alt="Moustiquaires">
+                                            <figcaption>
+                                                <h2><span>Systèmes d’Automatisation des Pergolas</span></h2>
+                                              
+                                                <a href="{% url 'SystemesAutomatisationPergolas' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-8 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="{% static 'images/products/1572614119.jpg' %}" alt="CLOISON BORD A BORD VITREE">
+                                            <figcaption>
+                                                <h2><span>Systèmes de Contrôle d'Accès Automatisés</span></h2>
+                                                <a href="{% url 'SystemescontroleAcces' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="{% static 'images/products/1568118026.png' %}" alt="Porte Garage">
+                                            <figcaption>
+                                                <h2><span>Rideaux Métalliques </br> Motorisés</span></h2>
+                                                <!-- <p>Nos portes de garage allient sécurité, style et fonctionnalité.</p>-->
+                                                <a href="{% url 'RideauxMetalliquesMotorises' %}"></a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 gal-item">
+                                    <div class="grid">
+                                        <figure class="effect-layla">
+                                            <img src="{% static 'images/products/1597495868.jpg' %}" alt="Moustiquaires">
+                                            <figcaption>
+                                                <h2><span>Systèmes de Gestion de Parking Automatisés</span></h2>
+                                              
+                                                <a href="{% url 'Systemesgestionparking' %}">View more</a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                              
+                          
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+
+  
+{% endblock %}

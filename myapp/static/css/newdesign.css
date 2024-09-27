@@ -1,0 +1,42 @@
+
+.timeline-container {
+ font-family: Arial, sans-serif;
+ padding: 20px;
+}
+.timeline {
+ position: relative;
+ max-width: 90%;
+ margin: 0 auto;
+ display: flex;
+ justify-content: space-between;
+}
+.timeline .step {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ width: 30%;
+ text-align: center;
+}
+.timeline .step-icon {
+ width: 60px;
+ height: 60px;
+ border-radius: 50%;
+ background-color: #888;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin-bottom: 10px;
+}
+.timeline .step-icon img {
+ width: 30px;
+ height: 30px;
+}
+.timeline .step-title {
+ font-weight: bold;
+ margin-bottom: 5px;
+}
+.timeline .step-description {
+ font-size: 0.9em;
+ color: #666;
+}
+
