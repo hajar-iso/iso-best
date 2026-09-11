@@ -1,0 +1,262 @@
+{% extends  'basefiles/baseprudct.html' %}
+{% load static %}
+{% block title %}Calculateur Vitrage{% endblock %}
+{% block content %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="block-head text-center mb-4">
+            <h2 class="title"><span>CALCULATEUR DE VITRAGE</span></h2>
+            <p>
+                Estimez l'épaisseur recommandée selon les dimensions de votre baie, et calculez la performance
+                thermique (Ug) d'un double vitrage selon la composition que vous choisissez.
+            </p>
+        </div>
+
+        <ul class="nav nav-tabs justify-content-center mb-4" id="vitrageTabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="javascript:void(0)" onclick="afficherOnglet('tab-dimensions', this)">1. Dimensions &amp; épaisseur recommandée</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)" onclick="afficherOnglet('tab-composition', this)">2. Performance du double vitrage</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- ===================== TAB 1 : DIMENSIONS ===================== -->
+            <div class="tab-pane" id="tab-dimensions" style="display:block;">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="p-4 bg-color rounded">
+                            <h4>Dimensions du vitrage</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Largeur (cm)</label>
+                                <input type="number" min="1" step="0.1" class="form-control" id="dimLargeur" value="120">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Hauteur (cm)</label>
+                                <input type="number" min="1" step="0.1" class="form-control" id="dimHauteur" value="150">
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="calculerDimensions()">Calculer</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-4 rounded" id="resultDimensions" style="background:#f6f6f6; min-height:100%;">
+                            <p class="text-muted">Renseignez les dimensions puis cliquez sur « Calculer » pour obtenir la surface et l'épaisseur de verre minimale recommandée.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-3"><small class="text-muted">
+                    Estimation indicative basée sur des abaques simplifiés (verre monolithique / recuit, exposition au vent modérée).
+                    Pour les grandes surfaces, les façades, ou les zones à forte exposition au vent, une étude technique conforme
+                    à la norme en vigueur (DTU 39 / NM) est obligatoire avant tout choix définitif.
+                </small></p>
+            </div>
+
+            <!-- ===================== TAB 2 : COMPOSITION ===================== -->
+            <div class="tab-pane" id="tab-composition" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="p-4 bg-color rounded">
+                            <h4>Composition du double vitrage</h4>
+
+                            <div class="mb-3">
+                                <label class="form-label">Épaisseur vitre extérieure (mm)</label>
+                                <select class="form-control" id="epVitre1">
+                                    <option value="4">4 mm</option>
+                                    <option value="5">5 mm</option>
+                                    <option value="6" selected>6 mm</option>
+                                    <option value="8">8 mm</option>
+                                    <option value="10">10 mm</option>
+                                    <option value="12">12 mm</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Lame d'air / de gaz (mm)</label>
+                                <select class="form-control" id="lameGaz">
+                                    <option value="6">6 mm</option>
+                                    <option value="8">8 mm</option>
+                                    <option value="10">10 mm</option>
+                                    <option value="12">12 mm</option>
+                                    <option value="14">14 mm</option>
+                                    <option value="16" selected>16 mm</option>
+                                    <option value="18">18 mm</option>
+                                    <option value="20">20 mm</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Type de gaz</label>
+                                <select class="form-control" id="typeGaz">
+                                    <option value="air">Air</option>
+                                    <option value="argon" selected>Argon</option>
+                                    <option value="krypton">Krypton</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Épaisseur vitre intérieure (mm)</label>
+                                <select class="form-control" id="epVitre2">
+                                    <option value="4" selected>4 mm</option>
+                                    <option value="5">5 mm</option>
+                                    <option value="6">6 mm</option>
+                                    <option value="8">8 mm</option>
+                                    <option value="10">10 mm</option>
+                                    <option value="12">12 mm</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="lowE" checked>
+                                <label class="form-check-label" for="lowE">
+                                    Vitrage à isolation renforcée (couche Low-E sur la vitre intérieure, face gaz)
+                                </label>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" onclick="calculerComposition()">Calculer</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-4 rounded" id="resultComposition" style="background:#f6f6f6; min-height:100%;">
+                            <p class="text-muted">Choisissez une composition puis cliquez sur « Calculer » pour obtenir le coefficient Ug (performance thermique).</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-3"><small class="text-muted">
+                    Calcul indicatif du coefficient Ug basé sur la méthode simplifiée EN 673. Les valeurs certifiées
+                    dépendent des fiches techniques du fabricant du verre et doivent être utilisées pour tout dossier réglementaire.
+                </small></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+/* ---------- Bascule d'onglets (implémentation autonome, sans dépendre du JS de Bootstrap) ---------- */
+function afficherOnglet(idOnglet, lien) {
+    var panneaux = document.querySelectorAll('#tab-dimensions, #tab-composition');
+    for (var i = 0; i < panneaux.length; i++) {
+        panneaux[i].style.display = 'none';
+    }
+    document.getElementById(idOnglet).style.display = 'block';
+
+    var liens = document.querySelectorAll('#vitrageTabs .nav-link');
+    for (var j = 0; j < liens.length; j++) {
+        liens[j].classList.remove('active');
+    }
+    lien.classList.add('active');
+}
+
+/* ---------- Tab 1 : dimensions -> épaisseur recommandée (abaque indicatif) ---------- */
+var EPAISSEURS = [
+    { mm: 4,  maxArea: 1.0, maxDim: 130 },
+    { mm: 5,  maxArea: 1.5, maxDim: 150 },
+    { mm: 6,  maxArea: 2.2, maxDim: 180 },
+    { mm: 8,  maxArea: 3.5, maxDim: 220 },
+    { mm: 10, maxArea: 5.0, maxDim: 260 },
+    { mm: 12, maxArea: 7.0, maxDim: 300 }
+];
+
+function calculerDimensions() {
+    var largeur = parseFloat(document.getElementById('dimLargeur').value);
+    var hauteur = parseFloat(document.getElementById('dimHauteur').value);
+    var box = document.getElementById('resultDimensions');
+
+    if (!largeur || !hauteur || largeur <= 0 || hauteur <= 0) {
+        box.innerHTML = '<p class="text-danger">Veuillez saisir des dimensions valides.</p>';
+        return;
+    }
+
+    var surface = (largeur / 100) * (hauteur / 100);
+    var grandeDim = Math.max(largeur, hauteur);
+
+    var recommandation = null;
+    for (var i = 0; i < EPAISSEURS.length; i++) {
+        var e = EPAISSEURS[i];
+        if (surface <= e.maxArea && grandeDim <= e.maxDim) {
+            recommandation = e.mm;
+            break;
+        }
+    }
+
+    var html = '<h4>Résultat</h4>';
+    html += '<p><strong>Surface :</strong> ' + surface.toFixed(2) + ' m²</p>';
+    html += '<p><strong>Plus grande dimension :</strong> ' + grandeDim.toFixed(0) + ' cm</p>';
+
+    if (recommandation) {
+        html += '<p><strong>Épaisseur de verre minimale recommandée :</strong> ' + recommandation + ' mm (par feuille, en double vitrage)</p>';
+    } else {
+        html += '<p><strong>Épaisseur de verre minimale recommandée :</strong> supérieure à 12 mm, ou vitrage feuilleté / trempé structurel &mdash; une étude technique est nécessaire.</p>';
+    }
+    html += '<p class="text-muted">Basé sur une exposition au vent modérée. En façade, en hauteur, ou en zone très exposée, l\'épaisseur doit être vérifiée selon la norme en vigueur.</p>';
+    box.innerHTML = html;
+}
+
+/* ---------- Tab 2 : composition -> Ug (méthode simplifiée EN 673) ---------- */
+var GAZ = {
+    air:     { lambda: 0.0240, mu: 17.30e-6, rho: 1.223, cp: 1008 },
+    argon:   { lambda: 0.0163, mu: 22.03e-6, rho: 1.699, cp: 519  },
+    krypton: { lambda: 0.0090, mu: 25.51e-6, rho: 3.560, cp: 245  }
+};
+
+var SIGMA = 5.67e-8;   // constante de Stefan-Boltzmann
+var TM = 283;          // température moyenne de la lame (K), conditions EN 673
+var DELTA_T = 15;      // écart de température (K), conditions EN 673
+var G = 9.81;
+var RSI = 0.13;        // résistance surfacique interne (m².K/W)
+var RSE = 0.04;        // résistance surfacique externe (m².K/W)
+var LAMBDA_VERRE = 1.0; // conductivité thermique du verre (W/m.K)
+var EMISSIVITE_NORMALE = 0.837;
+var EMISSIVITE_LOWE = 0.04;
+
+function resistanceLame(gapMm, gazKey, emissivite1, emissivite2) {
+    var s = gapMm / 1000; // m
+    var g = GAZ[gazKey];
+
+    var Ra = (Math.pow(g.rho, 2) * Math.pow(s, 3) * G * DELTA_T * g.cp) / (TM * g.mu * g.lambda);
+    var Nu = 0.035 * Math.pow(Ra, 0.38);
+    if (Nu < 1) { Nu = 1; }
+
+    var hg = Nu * g.lambda / s;
+    var hr = 4 * SIGMA * Math.pow(TM, 3) / ((1 / emissivite1) + (1 / emissivite2) - 1);
+    var hs = hg + hr;
+
+    return 1 / hs;
+}
+
+function calculerComposition() {
+    var e1 = parseFloat(document.getElementById('epVitre1').value);
+    var gap = parseFloat(document.getElementById('lameGaz').value);
+    var gaz = document.getElementById('typeGaz').value;
+    var e2 = parseFloat(document.getElementById('epVitre2').value);
+    var lowE = document.getElementById('lowE').checked;
+
+    var emissivite1 = EMISSIVITE_NORMALE;
+    var emissivite2 = lowE ? EMISSIVITE_LOWE : EMISSIVITE_NORMALE;
+
+    var Rverre1 = (e1 / 1000) / LAMBDA_VERRE;
+    var Rverre2 = (e2 / 1000) / LAMBDA_VERRE;
+    var Rlame = resistanceLame(gap, gaz, emissivite1, emissivite2);
+
+    var Ug = 1 / (RSI + RSE + Rverre1 + Rverre2 + Rlame);
+    var epaisseurTotale = e1 + gap + e2;
+
+    var classe;
+    if (Ug < 1.1) { classe = 'Vitrage à Isolation Renforcée haute performance'; }
+    else if (Ug < 1.6) { classe = 'Vitrage à Isolation Renforcée (VIR) standard'; }
+    else if (Ug < 2.5) { classe = 'Double vitrage standard'; }
+    else { classe = 'Double vitrage basique, peu isolant'; }
+
+    var box = document.getElementById('resultComposition');
+    var html = '<h4>Résultat</h4>';
+    html += '<p><strong>Composition :</strong> ' + e1 + ' / ' + gap + ' (' + gaz + ') / ' + e2 + ' mm';
+    html += (lowE ? ' &mdash; couche Low-E' : '') + '</p>';
+    html += '<p><strong>Épaisseur totale du vitrage :</strong> ' + epaisseurTotale + ' mm</p>';
+    html += '<p><strong>Coefficient Ug :</strong> ' + Ug.toFixed(2) + ' W/m².K</p>';
+    html += '<p><strong>Catégorie :</strong> ' + classe + '</p>';
+    box.innerHTML = html;
+}
+</script>
+{% endblock %}

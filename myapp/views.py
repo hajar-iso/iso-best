@@ -95,3 +95,5 @@ def home(request):
     return render(request, 'home.html')
 def about(request):
     return render(request, 'about.html')
+def calculateur_vitrage(request):
+    return render(request, 'calculateur_vitrage.html')

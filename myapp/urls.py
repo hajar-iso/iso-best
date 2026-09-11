@@ -50,6 +50,7 @@ urlpatterns = [
     path("slidesfile/",views.slidesfile,name="slidesfile"),
     path("prod/",views.prod,name="prod"),
     path("about/",views.about,name="about"),
-  
+    path("calculateur-vitrage/",views.calculateur_vitrage,name="calculateur_vitrage"),
+
 
 ]
