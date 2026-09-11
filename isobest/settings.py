@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-d6$#j+6cuh^d$h_+x@+(b!!yyi%d#7#+v92lmcbw@r^v5rv#&^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# TODO: remplacez '*' par votre(vos) nom(s) de domaine réel(s), ex: ['isobest.com', 'www.isobest.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
