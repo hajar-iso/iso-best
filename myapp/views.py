@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'home.html')
 # pages of Automatisme
 
 def Automatismelast(request):
@@ -35,27 +35,27 @@ def MENUISERIEALUMINIUM(request):
     return render(request, 'productsfiles/MENUISERIEALUMINIUM.html')
 
 def portesfenetre(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/portesfenetre.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/portesfenetre.html')
 def baiesvitre(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/baiesvitre.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/baiesvitre.html')
 def Brisesoleil(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/Brisesoleil.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/Brisesoleil.html')
 def Cloisonsamovibles(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/Cloisonsamovibles.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/Cloisonsamovibles.html')
 def CloturesPortails(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/CloturesPortails.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/CloturesPortails.html')
 def Fenetres(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/Fenetres.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/Fenetres.html')
 def alGardecorps(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/alGardecorps.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/alGardecorps.html')
 def Pergolas(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/Pergolas.html')
-def Portes(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/Portes.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/Pergolas.html')
+def PortesAluminium(request):
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/Portes.html')
 def Verrieres(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/Verrieres.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/Verrieres.html')
 def Volets(request):
-    return render(request, 'productsfiles/sub-product/MenuiserieAluminium/Volets.html')
+    return render(request, 'productsfiles/sub-product/Menuiserie Aluminium/Volets.html')
 # pages of Menuiserie Façade
 def MenuiserieFaçade(request):
     return render(request, 'productsfiles/MenuiserieFaçade.html')
