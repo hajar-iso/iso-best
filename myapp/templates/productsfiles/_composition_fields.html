@@ -1,0 +1,87 @@
+<div class="mb-3">
+    <label class="form-label">Type de vitrage</label>
+    <select class="form-control" id="{{ prefix }}_type" onchange="updateCompositionFields('{{ prefix }}')">
+        <option value="simple">Simple (monolithique)</option>
+        <option value="feuillete">Feuilleté</option>
+        <option value="double" selected>Double vitrage</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label class="form-label" id="{{ prefix }}_pane1_label">Vitre extérieure</label>
+    <div class="d-flex" style="gap:8px;">
+        <select class="form-control" id="{{ prefix }}_t1" style="max-width:110px;">
+            <option value="3">3 mm</option>
+            <option value="4">4 mm</option>
+            <option value="5">5 mm</option>
+            <option value="6" selected>6 mm</option>
+            <option value="8">8 mm</option>
+            <option value="10">10 mm</option>
+            <option value="12">12 mm</option>
+        </select>
+        <select class="form-control" id="{{ prefix }}_glass1">
+            <option value="recuit" selected>Recuit</option>
+            <option value="trempe">Trempé</option>
+        </select>
+    </div>
+</div>
+
+<div id="{{ prefix }}_pane2_fields">
+    <div class="mb-3">
+        <label class="form-label" id="{{ prefix }}_pane2_label">Vitre intérieure</label>
+        <div class="d-flex" style="gap:8px;">
+            <select class="form-control" id="{{ prefix }}_t2" style="max-width:110px;">
+                <option value="3">3 mm</option>
+                <option value="4" selected>4 mm</option>
+                <option value="5">5 mm</option>
+                <option value="6">6 mm</option>
+                <option value="8">8 mm</option>
+                <option value="10">10 mm</option>
+                <option value="12">12 mm</option>
+            </select>
+            <select class="form-control" id="{{ prefix }}_glass2">
+                <option value="recuit" selected>Recuit</option>
+                <option value="trempe">Trempé</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div id="{{ prefix }}_double_fields">
+    <div class="mb-3">
+        <label class="form-label">Lame de gaz (mm)</label>
+        <select class="form-control" id="{{ prefix }}_gap">
+            <option value="6">6 mm</option>
+            <option value="8">8 mm</option>
+            <option value="10">10 mm</option>
+            <option value="12">12 mm</option>
+            <option value="16" selected>16 mm</option>
+            <option value="20">20 mm</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Type de gaz</label>
+        <select class="form-control" id="{{ prefix }}_gaz">
+            <option value="air">Air</option>
+            <option value="argon" selected>Argon</option>
+            <option value="krypton">Krypton</option>
+        </select>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="{{ prefix }}_lowe" checked>
+        <label class="form-check-label" for="{{ prefix }}_lowe">Couche Low-E (isolation renforcée)</label>
+    </div>
+</div>
+
+<div id="{{ prefix }}_simple_fields" style="display:none;"></div>
+
+<script>
+    (function() {
+        // initialise l'état des champs affichés selon le type par défaut ("double")
+        if (typeof updateCompositionFields === 'function') {
+            updateCompositionFields('{{ prefix }}');
+        } else {
+            document.addEventListener('DOMContentLoaded', function() { updateCompositionFields('{{ prefix }}'); });
+        }
+    })();
+</script>

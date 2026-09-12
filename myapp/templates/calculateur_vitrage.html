@@ -1,261 +1,522 @@
 {% extends  'basefiles/baseprudct.html' %}
 {% load static %}
-{% block title %}Calculateur Vitrage{% endblock %}
+{% block title %}Outil Technique Vitrage{% endblock %}
 {% block content %}
 <div class="container-xxl py-5">
     <div class="container">
         <div class="block-head text-center mb-4">
-            <h2 class="title"><span>CALCULATEUR DE VITRAGE</span></h2>
+            <h2 class="title"><span>OUTIL TECHNIQUE VITRAGE</span></h2>
             <p>
-                Estimez l'épaisseur recommandée selon les dimensions de votre baie, et calculez la performance
-                thermique (Ug) d'un double vitrage selon la composition que vous choisissez.
+                Outil de calcul interne : dimensionnement mécanique du verre (résistance au vent, flèche) selon la
+                théorie des plaques et une méthode de type EN&nbsp;16612, et performance thermique (Ug) selon EN&nbsp;673.
             </p>
         </div>
 
-        <ul class="nav nav-tabs justify-content-center mb-4" id="vitrageTabs">
+        <ul class="nav nav-tabs justify-content-center mb-4 flex-wrap" id="vitrageTabs">
             <li class="nav-item">
-                <a class="nav-link active" href="javascript:void(0)" onclick="afficherOnglet('tab-dimensions', this)">1. Dimensions &amp; épaisseur recommandée</a>
+                <a class="nav-link active" href="javascript:void(0)" onclick="afficherOnglet('tab-recommandation', this)">1. Dimensions → composition recommandée</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)" onclick="afficherOnglet('tab-composition', this)">2. Performance du double vitrage</a>
+                <a class="nav-link" href="javascript:void(0)" onclick="afficherOnglet('tab-maxdim', this)">2. Composition → dimensions max</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)" onclick="afficherOnglet('tab-indice', this)">3. Dimensions → indice requis</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)" onclick="afficherOnglet('tab-perf', this)">4. Composition → performance</a>
             </li>
         </ul>
 
         <div class="tab-content">
 
-            <!-- ===================== TAB 1 : DIMENSIONS ===================== -->
-            <div class="tab-pane" id="tab-dimensions" style="display:block;">
+            <!-- ===================== TAB 1 : RECOMMANDATION ===================== -->
+            <div class="tab-pane" id="tab-recommandation" style="display:block;">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="p-4 bg-color rounded">
+                            <h4>Dimensions et conditions</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Largeur (cm)</label>
+                                <input type="number" min="1" step="0.1" class="form-control" id="rec_largeur" value="120">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Hauteur (cm)</label>
+                                <input type="number" min="1" step="0.1" class="form-control" id="rec_hauteur" value="150">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Pression de vent de calcul (Pa)</label>
+                                <input type="number" min="1" step="1" class="form-control" id="rec_pression" value="800">
+                                <small class="text-muted">Indicatif : 400-600 Pa (abrité), 800-1000 Pa (standard), 1200 Pa+ (exposé/hauteur/côtier).</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Lame de gaz souhaitée (mm)</label>
+                                <select class="form-control" id="rec_gap">
+                                    <option value="6">6 mm</option>
+                                    <option value="8">8 mm</option>
+                                    <option value="10">10 mm</option>
+                                    <option value="12">12 mm</option>
+                                    <option value="16" selected>16 mm</option>
+                                    <option value="20">20 mm</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Type de gaz</label>
+                                <select class="form-control" id="rec_gaz">
+                                    <option value="air">Air</option>
+                                    <option value="argon" selected>Argon</option>
+                                    <option value="krypton">Krypton</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rec_lowe" checked>
+                                <label class="form-check-label" for="rec_lowe">Couche Low-E (isolation renforcée)</label>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="calculerRecommandation()">Calculer la composition adaptée</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-4 rounded" id="resultRecommandation" style="background:#f6f6f6; min-height:100%;">
+                            <p class="text-muted">Renseignez les dimensions et la pression de vent, puis cliquez sur « Calculer » : l'outil recherche la composition de double vitrage la plus économique qui résiste, en épaisseur croissante.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== TAB 2 : DIMENSIONS MAX ===================== -->
+            <div class="tab-pane" id="tab-maxdim" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="p-4 bg-color rounded">
+                            <h4>Composition à vérifier</h4>
+                            {% include "productsfiles/_composition_fields.html" with prefix="md" %}
+                            <hr>
+                            <div class="mb-3">
+                                <label class="form-label">Dimension fixe : Largeur (cm)</label>
+                                <input type="number" min="1" step="0.1" class="form-control" id="md_largeur" value="120">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Pression de vent de calcul (Pa)</label>
+                                <input type="number" min="1" step="1" class="form-control" id="md_pression" value="800">
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="calculerMaxDim()">Calculer la hauteur maximale</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-4 rounded" id="resultMaxDim" style="background:#f6f6f6; min-height:100%;">
+                            <p class="text-muted">Choisissez une composition, fixez la largeur, puis cliquez sur « Calculer » pour connaître la hauteur maximale admissible (recherche entre 10 cm et 6 m).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== TAB 3 : INDICE REQUIS ===================== -->
+            <div class="tab-pane" id="tab-indice" style="display:none;">
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="p-4 bg-color rounded">
                             <h4>Dimensions du vitrage</h4>
                             <div class="mb-3">
                                 <label class="form-label">Largeur (cm)</label>
-                                <input type="number" min="1" step="0.1" class="form-control" id="dimLargeur" value="120">
+                                <input type="number" min="1" step="0.1" class="form-control" id="idx_largeur" value="120">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Hauteur (cm)</label>
-                                <input type="number" min="1" step="0.1" class="form-control" id="dimHauteur" value="150">
+                                <input type="number" min="1" step="0.1" class="form-control" id="idx_hauteur" value="150">
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="calculerDimensions()">Calculer</button>
+                            <div class="mb-3">
+                                <label class="form-label">Pression de vent de calcul (Pa)</label>
+                                <input type="number" min="1" step="1" class="form-control" id="idx_pression" value="800">
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="calculerIndice()">Calculer l'indice requis</button>
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <div class="p-4 rounded" id="resultDimensions" style="background:#f6f6f6; min-height:100%;">
-                            <p class="text-muted">Renseignez les dimensions puis cliquez sur « Calculer » pour obtenir la surface et l'épaisseur de verre minimale recommandée.</p>
+                        <div class="p-4 rounded" id="resultIndice" style="background:#f6f6f6; min-height:100%;">
+                            <p class="text-muted">Donne, indépendamment de tout produit, l'épaisseur monolithique équivalente minimale (verre recuit de référence) que ces dimensions exigent sous la pression de vent choisie.</p>
                         </div>
                     </div>
                 </div>
-                <p class="mt-3"><small class="text-muted">
-                    Estimation indicative basée sur des abaques simplifiés (verre monolithique / recuit, exposition au vent modérée).
-                    Pour les grandes surfaces, les façades, ou les zones à forte exposition au vent, une étude technique conforme
-                    à la norme en vigueur (DTU 39 / NM) est obligatoire avant tout choix définitif.
-                </small></p>
             </div>
 
-            <!-- ===================== TAB 2 : COMPOSITION ===================== -->
-            <div class="tab-pane" id="tab-composition" style="display:none;">
+            <!-- ===================== TAB 4 : PERFORMANCE D'UNE COMPOSITION ===================== -->
+            <div class="tab-pane" id="tab-perf" style="display:none;">
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="p-4 bg-color rounded">
-                            <h4>Composition du double vitrage</h4>
-
+                            <h4>Composition et dimensions</h4>
+                            {% include "productsfiles/_composition_fields.html" with prefix="pf" %}
+                            <hr>
                             <div class="mb-3">
-                                <label class="form-label">Épaisseur vitre extérieure (mm)</label>
-                                <select class="form-control" id="epVitre1">
-                                    <option value="4">4 mm</option>
-                                    <option value="5">5 mm</option>
-                                    <option value="6" selected>6 mm</option>
-                                    <option value="8">8 mm</option>
-                                    <option value="10">10 mm</option>
-                                    <option value="12">12 mm</option>
-                                </select>
+                                <label class="form-label">Largeur (cm)</label>
+                                <input type="number" min="1" step="0.1" class="form-control" id="pf_largeur" value="120">
                             </div>
-
                             <div class="mb-3">
-                                <label class="form-label">Lame d'air / de gaz (mm)</label>
-                                <select class="form-control" id="lameGaz">
-                                    <option value="6">6 mm</option>
-                                    <option value="8">8 mm</option>
-                                    <option value="10">10 mm</option>
-                                    <option value="12">12 mm</option>
-                                    <option value="14">14 mm</option>
-                                    <option value="16" selected>16 mm</option>
-                                    <option value="18">18 mm</option>
-                                    <option value="20">20 mm</option>
-                                </select>
+                                <label class="form-label">Hauteur (cm)</label>
+                                <input type="number" min="1" step="0.1" class="form-control" id="pf_hauteur" value="150">
                             </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Type de gaz</label>
-                                <select class="form-control" id="typeGaz">
-                                    <option value="air">Air</option>
-                                    <option value="argon" selected>Argon</option>
-                                    <option value="krypton">Krypton</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Épaisseur vitre intérieure (mm)</label>
-                                <select class="form-control" id="epVitre2">
-                                    <option value="4" selected>4 mm</option>
-                                    <option value="5">5 mm</option>
-                                    <option value="6">6 mm</option>
-                                    <option value="8">8 mm</option>
-                                    <option value="10">10 mm</option>
-                                    <option value="12">12 mm</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="lowE" checked>
-                                <label class="form-check-label" for="lowE">
-                                    Vitrage à isolation renforcée (couche Low-E sur la vitre intérieure, face gaz)
-                                </label>
-                            </div>
-
-                            <button type="button" class="btn btn-primary" onclick="calculerComposition()">Calculer</button>
+                            <button type="button" class="btn btn-primary" onclick="calculerPerformance()">Calculer la performance</button>
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <div class="p-4 rounded" id="resultComposition" style="background:#f6f6f6; min-height:100%;">
-                            <p class="text-muted">Choisissez une composition puis cliquez sur « Calculer » pour obtenir le coefficient Ug (performance thermique).</p>
+                        <div class="p-4 rounded" id="resultPerf" style="background:#f6f6f6; min-height:100%;">
+                            <p class="text-muted">Donne, pour la composition et les dimensions choisies : la contrainte et la flèche obtenues, la pression de vent maximale admissible, et (en double vitrage) le coefficient Ug.</p>
                         </div>
                     </div>
                 </div>
-                <p class="mt-3"><small class="text-muted">
-                    Calcul indicatif du coefficient Ug basé sur la méthode simplifiée EN 673. Les valeurs certifiées
-                    dépendent des fiches techniques du fabricant du verre et doivent être utilisées pour tout dossier réglementaire.
-                </small></p>
             </div>
 
         </div>
+
+        <p class="mt-4"><small class="text-muted">
+            <strong>Méthode :</strong> flexion de plaque rectangulaire simplement appuyée sur 4 côtés, coefficients de
+            Timoshenko, contraintes admissibles de type EN&nbsp;16612 (recuit 18&nbsp;MPa, trempé 72&nbsp;MPa sous vent court terme),
+            flèche limitée à la petite portée / 65. Vitrage double : répartition de la charge de vent entre les deux
+            feuilles au prorata de leur rigidité (épaisseur³). Vitrage feuilleté : épaisseur équivalente conservative
+            sans transfert de cisaillement par l'intercalaire. <strong>Ces calculs sont une aide à la décision interne ;
+            pour tout projet non standard, une étude conforme à la norme en vigueur (DTU&nbsp;39/NM, EN&nbsp;16612) et les
+            fiches techniques du fabricant restent nécessaires.</strong>
+        </small></p>
     </div>
 </div>
 
 <script>
-/* ---------- Bascule d'onglets (implémentation autonome, sans dépendre du JS de Bootstrap) ---------- */
+/* ================= Bascule d'onglets ================= */
 function afficherOnglet(idOnglet, lien) {
-    var panneaux = document.querySelectorAll('#tab-dimensions, #tab-composition');
-    for (var i = 0; i < panneaux.length; i++) {
-        panneaux[i].style.display = 'none';
+    var ids = ['tab-recommandation', 'tab-maxdim', 'tab-indice', 'tab-perf'];
+    for (var i = 0; i < ids.length; i++) {
+        document.getElementById(ids[i]).style.display = 'none';
     }
     document.getElementById(idOnglet).style.display = 'block';
-
     var liens = document.querySelectorAll('#vitrageTabs .nav-link');
-    for (var j = 0; j < liens.length; j++) {
-        liens[j].classList.remove('active');
-    }
+    for (var j = 0; j < liens.length; j++) { liens[j].classList.remove('active'); }
     lien.classList.add('active');
 }
 
-/* ---------- Tab 1 : dimensions -> épaisseur recommandée (abaque indicatif) ---------- */
-var EPAISSEURS = [
-    { mm: 4,  maxArea: 1.0, maxDim: 130 },
-    { mm: 5,  maxArea: 1.5, maxDim: 150 },
-    { mm: 6,  maxArea: 2.2, maxDim: 180 },
-    { mm: 8,  maxArea: 3.5, maxDim: 220 },
-    { mm: 10, maxArea: 5.0, maxDim: 260 },
-    { mm: 12, maxArea: 7.0, maxDim: 300 }
+/* ================= Moteur physique : flexion de plaque (Timoshenko / EN 16612) ================= */
+var PLATE_TABLE = [
+    { r: 1.0, a1: 0.2874, b1: 0.0444 },
+    { r: 1.2, a1: 0.3762, b1: 0.0616 },
+    { r: 1.4, a1: 0.4530, b1: 0.0770 },
+    { r: 1.6, a1: 0.5172, b1: 0.0906 },
+    { r: 1.8, a1: 0.5688, b1: 0.1017 },
+    { r: 2.0, a1: 0.6102, b1: 0.1110 },
+    { r: 3.0, a1: 0.7134, b1: 0.1335 },
+    { r: 4.0, a1: 0.7410, b1: 0.1400 },
+    { r: 5.0, a1: 0.7476, b1: 0.1417 }
 ];
-
-function calculerDimensions() {
-    var largeur = parseFloat(document.getElementById('dimLargeur').value);
-    var hauteur = parseFloat(document.getElementById('dimHauteur').value);
-    var box = document.getElementById('resultDimensions');
-
-    if (!largeur || !hauteur || largeur <= 0 || hauteur <= 0) {
-        box.innerHTML = '<p class="text-danger">Veuillez saisir des dimensions valides.</p>';
-        return;
-    }
-
-    var surface = (largeur / 100) * (hauteur / 100);
-    var grandeDim = Math.max(largeur, hauteur);
-
-    var recommandation = null;
-    for (var i = 0; i < EPAISSEURS.length; i++) {
-        var e = EPAISSEURS[i];
-        if (surface <= e.maxArea && grandeDim <= e.maxDim) {
-            recommandation = e.mm;
-            break;
+function plateCoeffs(ratio) {
+    if (ratio <= 1.0) return { a1: PLATE_TABLE[0].a1, b1: PLATE_TABLE[0].b1 };
+    if (ratio >= 5.0) return { a1: 0.75, b1: 0.1421 };
+    for (var i = 0; i < PLATE_TABLE.length - 1; i++) {
+        var p0 = PLATE_TABLE[i], p1 = PLATE_TABLE[i + 1];
+        if (ratio >= p0.r && ratio <= p1.r) {
+            var t = (ratio - p0.r) / (p1.r - p0.r);
+            return { a1: p0.a1 + t * (p1.a1 - p0.a1), b1: p0.b1 + t * (p1.b1 - p0.b1) };
         }
     }
-
-    var html = '<h4>Résultat</h4>';
-    html += '<p><strong>Surface :</strong> ' + surface.toFixed(2) + ' m²</p>';
-    html += '<p><strong>Plus grande dimension :</strong> ' + grandeDim.toFixed(0) + ' cm</p>';
-
-    if (recommandation) {
-        html += '<p><strong>Épaisseur de verre minimale recommandée :</strong> ' + recommandation + ' mm (par feuille, en double vitrage)</p>';
-    } else {
-        html += '<p><strong>Épaisseur de verre minimale recommandée :</strong> supérieure à 12 mm, ou vitrage feuilleté / trempé structurel &mdash; une étude technique est nécessaire.</p>';
+    return { a1: PLATE_TABLE[0].a1, b1: PLATE_TABLE[0].b1 };
+}
+var E_GLASS = 70000;
+var DEFL_LIMIT_DIV = 65;
+var GLASS_TYPES = {
+    recuit: { label: "Recuit (verre simple)", sigma_adm: 18 },
+    trempe: { label: "Trempé (ESG)", sigma_adm: 72 }
+};
+function panePhysics(a_mm, b_mm, t_mm, q_Pa) {
+    var short = Math.min(a_mm, b_mm), long = Math.max(a_mm, b_mm);
+    var c = plateCoeffs(long / short);
+    var q_MPa = q_Pa / 1e6;
+    var sigma = c.a1 * q_MPa * Math.pow(short, 2) / Math.pow(t_mm, 2);
+    var defl = c.b1 * q_MPa * Math.pow(short, 4) / (E_GLASS * Math.pow(t_mm, 3));
+    return { sigma: sigma, defl: defl, short: short, long: long, ratio: long / short, defl_limit: short / DEFL_LIMIT_DIV };
+}
+function checkMonolithic(a_mm, b_mm, t_mm, q_Pa, glassKey) {
+    var p = panePhysics(a_mm, b_mm, t_mm, q_Pa);
+    var sigma_adm = GLASS_TYPES[glassKey].sigma_adm;
+    return {
+        sigma: p.sigma, sigma_adm: sigma_adm, ratioSigma: p.sigma / sigma_adm,
+        defl: p.defl, defl_limit: p.defl_limit, ratioDefl: p.defl / p.defl_limit,
+        ok: (p.sigma <= sigma_adm) && (p.defl <= p.defl_limit)
+    };
+}
+function effectiveThicknessLaminated(t1, t2) { return Math.cbrt(Math.pow(t1, 3) + Math.pow(t2, 3)); }
+function loadShareDouble(t1, t2) {
+    var s = Math.pow(t1, 3) + Math.pow(t2, 3);
+    return { f1: Math.pow(t1, 3) / s, f2: Math.pow(t2, 3) / s };
+}
+function checkComposition(type, p, a_mm, b_mm, q_Pa) {
+    if (type === 'simple') {
+        var r = checkMonolithic(a_mm, b_mm, p.t, q_Pa, p.glass);
+        return { ok: r.ok, panes: [r] };
     }
-    html += '<p class="text-muted">Basé sur une exposition au vent modérée. En façade, en hauteur, ou en zone très exposée, l\'épaisseur doit être vérifiée selon la norme en vigueur.</p>';
-    box.innerHTML = html;
+    if (type === 'feuillete') {
+        var te = effectiveThicknessLaminated(p.t1, p.t2);
+        var phys = panePhysics(a_mm, b_mm, te, q_Pa);
+        var sigma_adm = Math.min(GLASS_TYPES[p.glass1].sigma_adm, GLASS_TYPES[p.glass2].sigma_adm);
+        var r = {
+            sigma: phys.sigma, sigma_adm: sigma_adm, ratioSigma: phys.sigma / sigma_adm,
+            defl: phys.defl, defl_limit: phys.defl_limit, ratioDefl: phys.defl / phys.defl_limit,
+            ok: phys.sigma <= sigma_adm && phys.defl <= phys.defl_limit, t_eff: te
+        };
+        return { ok: r.ok, panes: [r] };
+    }
+    if (type === 'double') {
+        var share = loadShareDouble(p.t1, p.t2);
+        var r1 = checkMonolithic(a_mm, b_mm, p.t1, q_Pa * share.f1, p.glass1);
+        var r2 = checkMonolithic(a_mm, b_mm, p.t2, q_Pa * share.f2, p.glass2);
+        return { ok: r1.ok && r2.ok, panes: [r1, r2], share: share };
+    }
+}
+function maxPressureMonolithic(a_mm, b_mm, t_mm, glassKey) {
+    var short = Math.min(a_mm, b_mm), long = Math.max(a_mm, b_mm);
+    var c = plateCoeffs(long / short);
+    var sigma_adm = GLASS_TYPES[glassKey].sigma_adm;
+    var defl_limit = short / DEFL_LIMIT_DIV;
+    var q_sigma = sigma_adm * 1e6 * Math.pow(t_mm, 2) / (c.a1 * Math.pow(short, 2));
+    var q_defl = defl_limit * 1e6 * E_GLASS * Math.pow(t_mm, 3) / (c.b1 * Math.pow(short, 4));
+    return Math.min(q_sigma, q_defl);
+}
+function maxPressureComposition(type, p, a_mm, b_mm) {
+    if (type === 'simple') return maxPressureMonolithic(a_mm, b_mm, p.t, p.glass);
+    if (type === 'feuillete') {
+        var te = effectiveThicknessLaminated(p.t1, p.t2);
+        var sigma_adm = Math.min(GLASS_TYPES[p.glass1].sigma_adm, GLASS_TYPES[p.glass2].sigma_adm);
+        var short = Math.min(a_mm, b_mm), long = Math.max(a_mm, b_mm);
+        var c = plateCoeffs(long / short);
+        var defl_limit = short / DEFL_LIMIT_DIV;
+        var q_sigma = sigma_adm * 1e6 * Math.pow(te, 2) / (c.a1 * Math.pow(short, 2));
+        var q_defl = defl_limit * 1e6 * E_GLASS * Math.pow(te, 3) / (c.b1 * Math.pow(short, 4));
+        return Math.min(q_sigma, q_defl);
+    }
+    if (type === 'double') {
+        var share = loadShareDouble(p.t1, p.t2);
+        var q1max = maxPressureMonolithic(a_mm, b_mm, p.t1, p.glass1) / share.f1;
+        var q2max = maxPressureMonolithic(a_mm, b_mm, p.t2, p.glass2) / share.f2;
+        return Math.min(q1max, q2max);
+    }
+}
+function solveMaxDimension(type, p, fixed_mm, q_Pa) {
+    var lo = 100, hi = 6000;
+    if (!checkComposition(type, p, fixed_mm, lo, q_Pa).ok) return 0;
+    if (checkComposition(type, p, fixed_mm, hi, q_Pa).ok) return hi;
+    for (var i = 0; i < 60; i++) {
+        var mid = (lo + hi) / 2;
+        if (checkComposition(type, p, fixed_mm, mid, q_Pa).ok) lo = mid; else hi = mid;
+    }
+    return lo;
+}
+function solveMinThicknessRequired(a_mm, b_mm, q_Pa) {
+    var short = Math.min(a_mm, b_mm), long = Math.max(a_mm, b_mm);
+    var c = plateCoeffs(long / short);
+    var q_MPa = q_Pa / 1e6;
+    var sigma_adm = GLASS_TYPES.recuit.sigma_adm;
+    var defl_limit = short / DEFL_LIMIT_DIV;
+    var t_stress = Math.sqrt(c.a1 * q_MPa * Math.pow(short, 2) / sigma_adm);
+    var t_defl = Math.cbrt(c.b1 * q_MPa * Math.pow(short, 4) / (E_GLASS * defl_limit));
+    return Math.max(t_stress, t_defl);
+}
+var RECUIT_CANDIDATES = [[3,3],[3,4],[4,4],[4,5],[4,6],[5,5],[5,6],[6,6],[6,8],[8,8],[8,10],[10,10],[10,12],[12,12]];
+var TREMPE_CANDIDATES = [[4,4],[4,5],[4,6],[5,5],[5,6],[6,6],[6,8],[8,8],[8,10],[10,10],[10,12],[12,12]];
+function recommendComposition(a_mm, b_mm, q_Pa) {
+    for (var i = 0; i < RECUIT_CANDIDATES.length; i++) {
+        var c = RECUIT_CANDIDATES[i];
+        var res = checkComposition('double', { t1: c[0], glass1: 'recuit', t2: c[1], glass2: 'recuit' }, a_mm, b_mm, q_Pa);
+        if (res.ok) return { t1: c[0], glass1: 'recuit', t2: c[1], glass2: 'recuit', result: res };
+    }
+    for (var i = 0; i < TREMPE_CANDIDATES.length; i++) {
+        var c = TREMPE_CANDIDATES[i];
+        var res = checkComposition('double', { t1: c[0], glass1: 'trempe', t2: c[1], glass2: 'trempe' }, a_mm, b_mm, q_Pa);
+        if (res.ok) return { t1: c[0], glass1: 'trempe', t2: c[1], glass2: 'trempe', result: res };
+    }
+    return null;
 }
 
-/* ---------- Tab 2 : composition -> Ug (méthode simplifiée EN 673) ---------- */
+/* ================= Moteur thermique : Ug (EN 673 simplifiée) ================= */
 var GAZ = {
     air:     { lambda: 0.0240, mu: 17.30e-6, rho: 1.223, cp: 1008 },
     argon:   { lambda: 0.0163, mu: 22.03e-6, rho: 1.699, cp: 519  },
     krypton: { lambda: 0.0090, mu: 25.51e-6, rho: 3.560, cp: 245  }
 };
-
-var SIGMA = 5.67e-8;   // constante de Stefan-Boltzmann
-var TM = 283;          // température moyenne de la lame (K), conditions EN 673
-var DELTA_T = 15;      // écart de température (K), conditions EN 673
-var G = 9.81;
-var RSI = 0.13;        // résistance surfacique interne (m².K/W)
-var RSE = 0.04;        // résistance surfacique externe (m².K/W)
-var LAMBDA_VERRE = 1.0; // conductivité thermique du verre (W/m.K)
-var EMISSIVITE_NORMALE = 0.837;
-var EMISSIVITE_LOWE = 0.04;
-
-function resistanceLame(gapMm, gazKey, emissivite1, emissivite2) {
-    var s = gapMm / 1000; // m
-    var g = GAZ[gazKey];
-
-    var Ra = (Math.pow(g.rho, 2) * Math.pow(s, 3) * G * DELTA_T * g.cp) / (TM * g.mu * g.lambda);
+var SIGMA_B = 5.67e-8, TM = 283, DELTA_T = 15, G_ACC = 9.81, RSI = 0.13, RSE = 0.04, LAMBDA_VERRE = 1.0;
+var EMISSIVITE_NORMALE = 0.837, EMISSIVITE_LOWE = 0.04;
+function resistanceLame(gapMm, gazKey, e1, e2) {
+    var s = gapMm / 1000, g = GAZ[gazKey];
+    var Ra = (Math.pow(g.rho, 2) * Math.pow(s, 3) * G_ACC * DELTA_T * g.cp) / (TM * g.mu * g.lambda);
     var Nu = 0.035 * Math.pow(Ra, 0.38);
     if (Nu < 1) { Nu = 1; }
-
     var hg = Nu * g.lambda / s;
-    var hr = 4 * SIGMA * Math.pow(TM, 3) / ((1 / emissivite1) + (1 / emissivite2) - 1);
-    var hs = hg + hr;
-
-    return 1 / hs;
+    var hr = 4 * SIGMA_B * Math.pow(TM, 3) / ((1 / e1) + (1 / e2) - 1);
+    return 1 / (hg + hr);
+}
+function calcUg(e1_mm, gapMm, gazKey, e2_mm, lowE) {
+    var em1 = EMISSIVITE_NORMALE, em2 = lowE ? EMISSIVITE_LOWE : EMISSIVITE_NORMALE;
+    var R1 = (e1_mm / 1000) / LAMBDA_VERRE, R2 = (e2_mm / 1000) / LAMBDA_VERRE;
+    var Rl = resistanceLame(gapMm, gazKey, em1, em2);
+    return 1 / (RSI + RSE + R1 + R2 + Rl);
+}
+function classeUg(Ug) {
+    if (Ug < 1.1) return 'Vitrage à Isolation Renforcée haute performance';
+    if (Ug < 1.6) return 'Vitrage à Isolation Renforcée (VIR) standard';
+    if (Ug < 2.5) return 'Double vitrage standard';
+    return 'Double vitrage basique, peu isolant';
 }
 
-function calculerComposition() {
-    var e1 = parseFloat(document.getElementById('epVitre1').value);
-    var gap = parseFloat(document.getElementById('lameGaz').value);
-    var gaz = document.getElementById('typeGaz').value;
-    var e2 = parseFloat(document.getElementById('epVitre2').value);
-    var lowE = document.getElementById('lowE').checked;
+/* ================= Lecture des blocs "composition" réutilisables ================= */
+function updateCompositionFields(prefix) {
+    var type = document.getElementById(prefix + '_type').value;
+    document.getElementById(prefix + '_simple_fields').style.display = (type === 'simple') ? 'block' : 'none';
+    document.getElementById(prefix + '_double_fields').style.display = (type === 'double') ? 'block' : 'none';
+    document.getElementById(prefix + '_pane2_fields').style.display = (type === 'feuillete' || type === 'double') ? 'block' : 'none';
+    var label1 = document.getElementById(prefix + '_pane1_label');
+    var label2 = document.getElementById(prefix + '_pane2_label');
+    if (type === 'feuillete') {
+        label1.textContent = 'Pli 1';
+        label2.textContent = 'Pli 2';
+    } else if (type === 'double') {
+        label1.textContent = 'Vitre extérieure';
+        label2.textContent = 'Vitre intérieure';
+    } else {
+        label1.textContent = 'Verre';
+    }
+}
+function readComposition(prefix) {
+    var type = document.getElementById(prefix + '_type').value;
+    if (type === 'simple') {
+        return { type: type, params: { t: parseFloat(document.getElementById(prefix + '_t1').value), glass: document.getElementById(prefix + '_glass1').value } };
+    }
+    if (type === 'feuillete') {
+        return { type: type, params: {
+            t1: parseFloat(document.getElementById(prefix + '_t1').value), glass1: document.getElementById(prefix + '_glass1').value,
+            t2: parseFloat(document.getElementById(prefix + '_t2').value), glass2: document.getElementById(prefix + '_glass2').value
+        } };
+    }
+    return { type: 'double', params: {
+        t1: parseFloat(document.getElementById(prefix + '_t1').value), glass1: document.getElementById(prefix + '_glass1').value,
+        t2: parseFloat(document.getElementById(prefix + '_t2').value), glass2: document.getElementById(prefix + '_glass2').value,
+        gap: parseFloat(document.getElementById(prefix + '_gap').value), gaz: document.getElementById(prefix + '_gaz').value,
+        lowE: document.getElementById(prefix + '_lowe').checked
+    } };
+}
+function libelleComposition(type, p) {
+    if (type === 'simple') return p.t + ' mm (' + GLASS_TYPES[p.glass].label + ')';
+    if (type === 'feuillete') return p.t1 + ' mm (' + GLASS_TYPES[p.glass1].label + ') + ' + p.t2 + ' mm (' + GLASS_TYPES[p.glass2].label + ') feuilleté';
+    return p.t1 + ' (' + GLASS_TYPES[p.glass1].label + ') / ' + p.gap + ' ' + p.gaz + ' / ' + p.t2 + ' (' + GLASS_TYPES[p.glass2].label + ') mm';
+}
 
-    var emissivite1 = EMISSIVITE_NORMALE;
-    var emissivite2 = lowE ? EMISSIVITE_LOWE : EMISSIVITE_NORMALE;
+/* ================= TAB 1 : Recommandation ================= */
+function calculerRecommandation() {
+    var l = parseFloat(document.getElementById('rec_largeur').value) * 10; // cm -> mm
+    var h = parseFloat(document.getElementById('rec_hauteur').value) * 10;
+    var q = parseFloat(document.getElementById('rec_pression').value);
+    var gap = parseFloat(document.getElementById('rec_gap').value);
+    var gaz = document.getElementById('rec_gaz').value;
+    var lowE = document.getElementById('rec_lowe').checked;
+    var box = document.getElementById('resultRecommandation');
 
-    var Rverre1 = (e1 / 1000) / LAMBDA_VERRE;
-    var Rverre2 = (e2 / 1000) / LAMBDA_VERRE;
-    var Rlame = resistanceLame(gap, gaz, emissivite1, emissivite2);
+    if (!l || !h || !q || l <= 0 || h <= 0 || q <= 0) {
+        box.innerHTML = '<p class="text-danger">Veuillez saisir des valeurs valides.</p>';
+        return;
+    }
 
-    var Ug = 1 / (RSI + RSE + Rverre1 + Rverre2 + Rlame);
-    var epaisseurTotale = e1 + gap + e2;
-
-    var classe;
-    if (Ug < 1.1) { classe = 'Vitrage à Isolation Renforcée haute performance'; }
-    else if (Ug < 1.6) { classe = 'Vitrage à Isolation Renforcée (VIR) standard'; }
-    else if (Ug < 2.5) { classe = 'Double vitrage standard'; }
-    else { classe = 'Double vitrage basique, peu isolant'; }
-
-    var box = document.getElementById('resultComposition');
+    var reco = recommendComposition(l, h, q);
     var html = '<h4>Résultat</h4>';
-    html += '<p><strong>Composition :</strong> ' + e1 + ' / ' + gap + ' (' + gaz + ') / ' + e2 + ' mm';
-    html += (lowE ? ' &mdash; couche Low-E' : '') + '</p>';
-    html += '<p><strong>Épaisseur totale du vitrage :</strong> ' + epaisseurTotale + ' mm</p>';
-    html += '<p><strong>Coefficient Ug :</strong> ' + Ug.toFixed(2) + ' W/m².K</p>';
-    html += '<p><strong>Catégorie :</strong> ' + classe + '</p>';
+    html += '<p><strong>Surface :</strong> ' + ((l / 1000) * (h / 1000)).toFixed(2) + ' m²</p>';
+
+    if (!reco) {
+        html += '<p class="text-danger"><strong>Aucune composition standard (jusqu\'à 12/12 mm, recuit ou trempé) ne suffit</strong> pour ces dimensions et cette pression de vent. Une étude technique spécifique (verre feuilleté renforcé, meneaux intermédiaires…) est nécessaire.</p>';
+        box.innerHTML = html;
+        return;
+    }
+
+    var Ug = calcUg(reco.t1, gap, gaz, reco.t2, lowE);
+    html += '<p><strong>Composition recommandée :</strong> ' + reco.t1 + ' / ' + gap + ' ' + gaz + ' / ' + reco.t2 + ' mm (' + GLASS_TYPES[reco.glass1].label + ')</p>';
+    html += '<p><strong>Coefficient Ug :</strong> ' + Ug.toFixed(2) + ' W/m².K &mdash; ' + classeUg(Ug) + '</p>';
+    html += '<p><strong>Marges de sécurité mécanique</strong> (vitre extérieure / intérieure) :</p><ul>';
+    reco.result.panes.forEach(function (p, i) {
+        html += '<li>Vitre ' + (i === 1 ? 'intérieure' : 'extérieure') + ' : contrainte ' + p.sigma.toFixed(1) + '/' + p.sigma_adm + ' MPa (' + (p.ratioSigma * 100).toFixed(0) + '%), flèche ' + p.defl.toFixed(1) + '/' + p.defl_limit.toFixed(1) + ' mm (' + (p.ratioDefl * 100).toFixed(0) + '%)</li>';
+    });
+    html += '</ul>';
+    html += '<p class="text-muted">Recherche par épaisseur croissante parmi les compositions standards (verre recuit d\'abord, puis trempé si nécessaire).</p>';
+    box.innerHTML = html;
+}
+
+/* ================= TAB 2 : Dimensions max ================= */
+function calculerMaxDim() {
+    var largeur = parseFloat(document.getElementById('md_largeur').value) * 10;
+    var q = parseFloat(document.getElementById('md_pression').value);
+    var box = document.getElementById('resultMaxDim');
+    if (!largeur || !q || largeur <= 0 || q <= 0) {
+        box.innerHTML = '<p class="text-danger">Veuillez saisir des valeurs valides.</p>';
+        return;
+    }
+    var comp = readComposition('md');
+    var maxH = solveMaxDimension(comp.type, comp.params, largeur, q);
+    var html = '<h4>Résultat</h4>';
+    html += '<p><strong>Composition :</strong> ' + libelleComposition(comp.type, comp.params) + '</p>';
+    html += '<p><strong>Largeur fixée :</strong> ' + (largeur / 10).toFixed(0) + ' cm</p>';
+    if (maxH <= 100) {
+        html += '<p class="text-danger"><strong>Cette composition ne résiste pas</strong> même à la plus petite hauteur testée (10 cm) pour cette largeur et cette pression. Renforcez la composition.</p>';
+    } else {
+        html += '<p><strong>Hauteur maximale admissible :</strong> ' + (maxH / 10).toFixed(0) + ' cm (' + (maxH / 1000).toFixed(2) + ' m)</p>';
+        html += '<p><strong>Surface maximale correspondante :</strong> ' + ((largeur / 1000) * (maxH / 1000)).toFixed(2) + ' m²</p>';
+        html += '<p class="text-muted">Recherche par dichotomie entre 10 cm et 6 m, à largeur fixe. Au-delà de 6 m, une étude structurelle dédiée est nécessaire dans tous les cas.</p>';
+    }
+    box.innerHTML = html;
+}
+
+/* ================= TAB 3 : Indice requis ================= */
+function calculerIndice() {
+    var l = parseFloat(document.getElementById('idx_largeur').value) * 10;
+    var h = parseFloat(document.getElementById('idx_hauteur').value) * 10;
+    var q = parseFloat(document.getElementById('idx_pression').value);
+    var box = document.getElementById('resultIndice');
+    if (!l || !h || !q || l <= 0 || h <= 0 || q <= 0) {
+        box.innerHTML = '<p class="text-danger">Veuillez saisir des valeurs valides.</p>';
+        return;
+    }
+    var tmin = solveMinThicknessRequired(l, h, q);
+    var categorie;
+    if (tmin <= 4) categorie = 'Léger';
+    else if (tmin <= 6) categorie = 'Standard';
+    else if (tmin <= 10) categorie = 'Renforcé';
+    else categorie = 'Spécial — étude recommandée';
+
+    var html = '<h4>Résultat</h4>';
+    html += '<p><strong>Surface :</strong> ' + ((l / 1000) * (h / 1000)).toFixed(2) + ' m²</p>';
+    html += '<p><strong>Indice requis (épaisseur monolithique équivalente, verre recuit de référence) :</strong> ' + tmin.toFixed(2) + ' mm</p>';
+    html += '<p><strong>Catégorie de résistance :</strong> ' + categorie + '</p>';
+    html += '<p class="text-muted">Cet indice représente l\'épaisseur qu\'exigerait une seule feuille de verre recuit portant seule toute la pression de vent. En double vitrage, la charge se répartit entre les deux feuilles (voir onglets 1 et 2) : chaque feuille peut donc être plus fine que cet indice.</p>';
+    box.innerHTML = html;
+}
+
+/* ================= TAB 4 : Performance d'une composition ================= */
+function calculerPerformance() {
+    var l = parseFloat(document.getElementById('pf_largeur').value) * 10;
+    var h = parseFloat(document.getElementById('pf_hauteur').value) * 10;
+    var box = document.getElementById('resultPerf');
+    if (!l || !h || l <= 0 || h <= 0) {
+        box.innerHTML = '<p class="text-danger">Veuillez saisir des valeurs valides.</p>';
+        return;
+    }
+    var comp = readComposition('pf');
+    var check = checkComposition(comp.type, comp.params, l, h, 800); // 800 Pa de référence pour la vérification affichée
+    var qmax = maxPressureComposition(comp.type, comp.params, l, h);
+
+    var html = '<h4>Résultat</h4>';
+    html += '<p><strong>Composition :</strong> ' + libelleComposition(comp.type, comp.params) + '</p>';
+    html += '<p><strong>Dimensions :</strong> ' + (l / 10).toFixed(0) + ' × ' + (h / 10).toFixed(0) + ' cm</p>';
+    html += '<p><strong>Pression de vent maximale admissible :</strong> ' + qmax.toFixed(0) + ' Pa</p>';
+    html += '<p><strong>Vérification de référence à 800 Pa :</strong> ' + (check.ok ? '<span style="color:green">OK</span>' : '<span style="color:#c00">Insuffisant</span>') + '</p><ul>';
+    var labels = comp.type === 'simple' ? ['Verre'] : ['Vitre extérieure / Pli 1', 'Vitre intérieure / Pli 2'];
+    check.panes.forEach(function (p, i) {
+        html += '<li>' + (labels[i] || labels[0]) + ' : contrainte ' + p.sigma.toFixed(1) + '/' + p.sigma_adm + ' MPa (' + (p.ratioSigma * 100).toFixed(0) + '%), flèche ' + p.defl.toFixed(1) + '/' + p.defl_limit.toFixed(1) + ' mm (' + (p.ratioDefl * 100).toFixed(0) + '%)</li>';
+    });
+    html += '</ul>';
+
+    if (comp.type === 'double') {
+        var Ug = calcUg(comp.params.t1, comp.params.gap, comp.params.gaz, comp.params.t2, comp.params.lowE);
+        html += '<p><strong>Coefficient Ug :</strong> ' + Ug.toFixed(2) + ' W/m².K &mdash; ' + classeUg(Ug) + '</p>';
+    }
     box.innerHTML = html;
 }
 </script>
